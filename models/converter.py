@@ -5,20 +5,10 @@ import networkx as nx
 from networkx.readwrite import json_graph
 import json
 
-
-def load_pkl(fname, num_graph):
-    g_list = []
-    with open(fname, 'rb') as f:
-        for i in range(num_graph):
-            g = pickle.load(f)
-            g_list.append(g)
-    return g_list
-
 def graphs_to_json(dataset_dir):
     for (root, dirs, files) in os.walk(dataset_dir):
         for file_name in files:
             path = os.path.join(root, file_name)
-
             if 'args' in file_name or not file_name.endswith('.pkl'):
                 continue
             graphs = []

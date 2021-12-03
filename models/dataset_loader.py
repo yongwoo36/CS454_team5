@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
-from data_util import *
-from graph_embedding import S2VGraph
+from .data_util import *
+from .graph_embedding import S2VGraph
 
 """
 데이터셋은 https://www.dropbox.com/sh/mu8odkd36x54rl3/AABg8ABiMqwcMEM5qKIY97nla?dl=0 에서 다운로드후 dropbox로 이름 변경
@@ -70,6 +70,3 @@ def load_txt_data(data_folder, dataset_str, ctx):
     features = sp.csr_matrix((vals, col_idx, row_ptr), shape=(num_nodes, feature_dim))
        
     return preprocess_features(features, ctx), labels, idx_train, idx_val, idx_test
-
-load_graphs(15, 20, 5000, 0.05, 1, 3, "dropbox/data/components")
-print(load_txt_data("dropbox/data/pubmed", "pubmed", "cpu"))
