@@ -3,11 +3,15 @@ import numpy as np
 from data_util import *
 from graph_embedding import S2VGraph
 
+"""
+데이터셋은 https://www.dropbox.com/sh/mu8odkd36x54rl3/AABg8ABiMqwcMEM5qKIY97nla?dl=0 에서 다운로드후 dropbox로 이름 변경
+"""
+
 #Graph attack용 데이터 불러오는 함수들
 #(min_n, max_n, er_p): 그래프의 노드 개수 범위 (15,20,0.05) | (15,20,0.15) | (40,50,0.05) | (40,50,0.15) | (90,100,0.02) | (90,100,0.05)
 #n_graphs: 5000
 #(min_c, max_c): Component 개수 (1,3)
-#data_folder: dropbox/data/components
+#data_folder: ../dropbox/data/components
 
 def load_graphs(min_n, max_n, n_graphs, er_p, min_c, max_c, data_folder):
     frac_train = 0.9
@@ -30,7 +34,7 @@ def load_graphs(min_n, max_n, n_graphs, er_p, min_c, max_c, data_folder):
     return label_map, train_glist, test_glist
 
 #Node attack용 데이터 불러오는 함수들
-#data_folder: dropbox/data + / + {dataset_str}
+#data_folder: ../dropbox/data + / + {dataset_str}
 #dataset_str: pubmed | cora | siteseer
 #ctx: cpu | gpu
 
