@@ -1,5 +1,7 @@
 import networkx as nx
 import random
+import models.dataset_loader
+import models.model_loader
 
 
 class GA:
@@ -80,7 +82,7 @@ class GA:
         return graphs[:self.selected_population_size]
 
     def run(self, graph):
-        graphs_with_fitness = self.generate_breeding_population(graph)
+        graphs = self.generate_breeding_population(graph)
         for _ in range(self.rounds):
             graphs = [(g, self.get_fitness(g)) for g in self.generate(graphs)]
             for g, fitness in graphs:
@@ -93,8 +95,13 @@ class GA:
 
 
 if __name__ == '__main__':
-    # TODO: load dataset and model
-    model = None
+    label_map, _, _ = models.dataset_loader.load_graphs(
+        40, 50, 5000, 0.05, 1, 3, 'attack_graph/data/components')
+    model = \
+        models.model_loader.load_graph_model(
+            'attack_graph/scratch/results/graph_classification/components/nodes-40-50-p-0.05-c-1-3-lv-3/',
+            'epoch-best',
+            label_map)
 
     g = nx.Graph()
     for i in range(30):
