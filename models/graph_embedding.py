@@ -6,8 +6,8 @@ from torch.autograd import Variable
 import torch.nn as nn
 import torch.nn.functional as F
 
-from .pytorch_util import weights_init
-from .s2v_lib.s2v_lib import S2VLIB
+from pytorch_util import weights_init
+from s2v_lib.s2v_lib import S2VLIB
 
 class S2VGraph(object):
     def __init__(self, g, label, node_tags=None):        

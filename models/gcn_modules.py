@@ -14,11 +14,11 @@ import torch.optim as optim
 from tqdm import tqdm
 import pickle as cp
 
-from .pytorch_util import weights_init
+from pytorch_util import weights_init
 
-from .graph_embedding import gnn_spmm
+from graph_embedding import gnn_spmm
 
-from .node_utils import GraphNormTool
+from node_utils import GraphNormTool
 
 class GraphConvolution(nn.Module):
     def __init__(self, in_features, out_features, bias=True):

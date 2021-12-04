@@ -13,9 +13,9 @@ import torch.optim as optim
 from tqdm import tqdm
 import networkx as nx
 
-from .graph_embedding import EmbedMeanField, EmbedLoopyBP
+from graph_embedding import EmbedMeanField, EmbedLoopyBP
 
-from .pytorch_util import weights_init
+from pytorch_util import weights_init
 
 class MLPRegression(nn.Module):
     def __init__(self, input_size, hidden_size):

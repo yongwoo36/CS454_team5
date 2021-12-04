@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import networkx as nx
 import numpy as np
-from .data_util import *
-from .node_utils import StaticGraph
-from .graph_embedding import S2VGraph
+from data_util import *
+from node_utils import StaticGraph
+from graph_embedding import S2VGraph
 
 """
 데이터셋은 https://www.dropbox.com/sh/mu8odkd36x54rl3/AABg8ABiMqwcMEM5qKIY97nla?dl=0 에서 다운로드후 dropbox로 이름 변경

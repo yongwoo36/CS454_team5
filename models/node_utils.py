@@ -3,8 +3,8 @@ import torch
 import scipy.sparse as sp
 from scipy.sparse.linalg.eigen.arpack import eigsh
 
-from .custom_func import GraphLaplacianNorm, GraphDegreeNorm
-from . import context
+from custom_func import GraphLaplacianNorm, GraphDegreeNorm
+import context
 
 class StaticGraph(object):
     graph = None

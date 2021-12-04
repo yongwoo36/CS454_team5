@@ -1,9 +1,9 @@
 import torch
 
 import pickle as cp
-from .dnn import GraphClassifier
-from .gcn_modules import S2VNodeClassifier, GCNModule
-from . import context
+from dnn import GraphClassifier
+from gcn_modules import S2VNodeClassifier, GCNModule
+import context
 
 def load_graph_model(model_dir, model_name, label_map):
     with open('{}/{}-args.pkl'.format(model_dir, model_name), 'rb') as f:
