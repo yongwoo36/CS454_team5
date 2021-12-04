@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import networkx as nx
 import numpy as np
 from .data_util import *
