@@ -1,0 +1,9 @@
+cffi==1.12.2
+networkx==1.1
+numpy==1.16.6
+pathlib==1.0.1
+pycparser==2.21
+PyYAML==5.4.1
+scipy==1.2.3
+torch @ https://download.pytorch.org/whl/cpu/torch-0.3.1-cp27-cp27mu-linux_x86_64.whl
+tqdm==4.62.3
