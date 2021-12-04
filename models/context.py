@@ -1,1 +1,1 @@
-ctx = None # using GPU 
+ctx = 'cpu' # using GPU 

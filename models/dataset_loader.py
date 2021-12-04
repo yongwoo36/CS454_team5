@@ -2,6 +2,7 @@
 import networkx as nx
 import numpy as np
 from .data_util import *
+from .node_utils import StaticGraph
 from .graph_embedding import S2VGraph
 
 """
@@ -50,7 +51,7 @@ def load_txt_data(data_folder, dataset_str, ctx):
 
     graph = load_raw_graph(data_folder, dataset_str)
     assert len(graph) == num_nodes
-    StaticGraph.graph = nx.from_dict_of_lists(graph)
+    StaticGraph.graph = nx.from_dict_of_lists(graph) # should be StaticGraph of node_utils instead of data_util
     
     row_ptr = []
     col_idx = []
