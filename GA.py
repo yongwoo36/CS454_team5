@@ -15,6 +15,7 @@ class GA:
         self.crossover_rate = 0.7
         self.mutation_rate = 0.05
         self.mutation_limit = 2
+        self.label = None
 
     def crossover(self, p0, p1):
         if random.random > self.crossover_rate:
@@ -55,7 +56,7 @@ class GA:
                 else:
                     pass
 
-        if self.get_label(child) <= 3:
+        if self.get_label(child) <= 3 and self.get_label(child) == self.label:
             return child
         else:
             return nx.Graph.copy(g)
@@ -67,7 +68,9 @@ class GA:
         population = []
         while len(population) < self.population_size:
             p0, p1 = random.sample(graphs, 2)
-            population.append(self.crossover(p0, p1))
+            child = self.crossover(p0, p1)
+            if self.get_label(child) == self.label:
+                population.append(self.crossover(p0, p1))
 
         population = [self.mutation(g) for g in population]
         return population
@@ -87,27 +90,37 @@ class GA:
         return [g[0] for g in graphs[:self.selected_population_size]]
 
     def run(self, graph):
+        self.label = self.get_label(graph)
         graphs = self.generate_breeding_population(graph)
-        for _ in range(self.rounds):
+        for i in range(self.rounds):
             graphs = [(g, self.get_loss(g)) for g in self.generate(graphs)]
             for g, (l, _) in graphs:
-                if self.get_label(g) != l:
-                    print('Actual label: ' + str(self.get_label(g)))
+                if self.label == self.get_label(g) and self.label != l:
+                    print('Actual label: ' + str(self.label))
                     print('Predicted label: ' + str(l))
-                    return g
+                    return i, g
             else:
                 graphs = self.select(graphs)
 
-        return None
+        return None, None
 
 
 if __name__ == '__main__':
-    label_map, train_glist, _ = models.dataset_loader.load_graphs(
-        40, 50, 5000, 0.05, 1, 3, 'graph_adversarial_attack/data/components')
+    label_map, train_glist, test_glist = models.dataset_loader.load_graphs(
+        90, 100, 5000, 0.02, 1, 3, 'graph_adversarial_attack/data/components')
     model = \
         models.model_loader.load_graph_model(
-            'graph_adversarial_attack/scratch/results/graph_classification/components/nodes-40-50-p-0.05-c-1-3-lv-3/',
+            'graph_adversarial_attack/scratch/results/graph_classification/components/nodes-90-100-p-0.02-c-1-3-lv-5/',
             'epoch-best',
             label_map)
 
-    GA(model).run(train_glist[100].to_networkx())
+    attack_success = [0,0,0]
+    for g in test_glist:
+        round, adversarial = GA(model).run(g.to_networkx())
+        real_label = nx.number_connected_components(g.to_networkx()) - 1
+        if adversarial:
+            attack_success[real_label] += 1
+    
+    
+    attack_success_total = attack_success[0] + attack_success[1] + attack_success[2]
+    print('[+] Final attack success rate : %.2f' % (attack_success_total/len(test_glist) * 100))
